@@ -1,0 +1,26 @@
+name: Windows CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  cpu-workflow:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install CPU dependencies
+        shell: pwsh
+        run: .\setup.ps1
+      - name: Test local workflows
+        shell: pwsh
+        run: .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+      - name: Check dependency resolution
+        shell: pwsh
+        run: .\.venv\Scripts\python.exe -m pip check
+      - name: Scan published files
+        shell: pwsh
+        run: .\.venv\Scripts\python.exe -m image_cleanup.release_check

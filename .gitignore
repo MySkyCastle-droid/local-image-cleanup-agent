@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+models/
+data/
+work/
+output/
+*.log
+*.zip
+*.pptx
+*.xlsx
+.env
+.env.*
+!.env.example
